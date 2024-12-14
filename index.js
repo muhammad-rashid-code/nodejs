@@ -4,9 +4,12 @@ const tasks = [
   { id: 1, task: "Concept samajna ha." },
 ];
 import express from "express";
+import morgan from "morgan";
 
 const app = express();
 const PORT = 4000;
+
+app.use(morgan("tiny"));
 
 // application level middleware
 
@@ -16,7 +19,8 @@ function middleware(req, res, next) {
 }
 
 app.use(middleware);
-app.get("/", middleware, (req, res) => {
+
+app.get("/", (req, res) => {
   console.log("req=>", req);
   res.status(200).send(tasks);
 });
