@@ -8,7 +8,15 @@ import express from "express";
 const app = express();
 const PORT = 4000;
 
-app.get("/", (req, res) => {
+// application level middleware
+
+function middleware(req, res, next) {
+  console.log("Current date", Date.now());
+  next();
+}
+
+app.use(middleware);
+app.get("/", middleware, (req, res) => {
   console.log("req=>", req);
   res.status(200).send(tasks);
 });
