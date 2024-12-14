@@ -16,11 +16,13 @@ app.use(morgan("tiny"));
 function middleware(req, res, next) {
   console.log("Current date", Date.now());
   req.requestBy = "Bilal Raza";
-  res.status(500).send("system me kuch masla ho gaya hai.");
+  // res.status(500).send("system me kuch masla ho gaya hai.");
   next();
 }
 
 app.use(middleware);
+
+app.use(express.json());
 
 app.get("/", (req, res) => {
   console.log("req=>", req);
@@ -29,8 +31,8 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-  console.log("req=>", req);
-  res.send("Hello BackEnd First Server! and API This Is Post Request");
+  console.log("reqbody=>", req.body);
+  res.send("Hello BackEnd First Server! and API This Is Put Request");
 });
 
 app.put("/", (req, res) => {
